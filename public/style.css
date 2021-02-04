@@ -1,4 +1,4 @@
-div.post {
+div.post, div.user {
     border: 1px solid black;
     width: 50%;
     margin: 10px auto;
@@ -11,4 +11,7 @@ div.details div {
     display: inline;
     width: 30%;
     border: 1px solid black;
+}
+body{
+ background-color:darksalmon;
 }
