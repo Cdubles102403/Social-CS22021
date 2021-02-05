@@ -4,6 +4,9 @@ const app = express();
 const server = require("http").createServer(app);
 const PORT = 8080;
 
+app.use(express.static('reusables'))
+app.use(express.static("public"))
+
 function openDatabase() {
     //opens a new database connection
     let dataBase = new SQL.Database("database.db", function(err) {
@@ -21,5 +24,16 @@ app.post('getUsers',(req,res)=>{
 
 })
 
-app.use(express.static("public"))
+app.post('createPost',(req,res)=>{
+
+})
+
+app.post('signup',(req,res)=>{
+
+})
+
+app.post('login',(req,res)=>{
+
+})
+
 server.listen(PORT)
