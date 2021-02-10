@@ -16,24 +16,31 @@ function openDatabase() {
     return dataBase;
 }
 
-app.post('getPosts',(req,res)=>{
+app.post('/getPosts',(req,res)=>{
+    console.log("sending posts")
+   var db = openDatabase();
+  var  SQL_posts = `SELECT * FROM posts`
+  db.all(SQL_posts,[],(err,response)=>{
+    if (err) throw err;
+    res.send(response)
+    console.log(response)
+  })
+})
+
+app.post('/getUsers',(req,res)=>{
 
 })
 
-app.post('getUsers',(req,res)=>{
+app.post('/createPost',(req,res)=>{
 
 })
 
-app.post('createPost',(req,res)=>{
+app.post('/signup',(req,res)=>{
 
 })
 
-app.post('signup',(req,res)=>{
+app.post('/login',(req,res)=>{
 
 })
 
-app.post('login',(req,res)=>{
-
-})
-
-server.listen(PORT)
+server.listen(PORT,function(){console.log(`starting on port:${PORT}`)})
