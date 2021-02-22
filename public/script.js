@@ -1,7 +1,52 @@
+//2. User can create new post, send to server
 const $postContainer = document.getElementById("posts")
 //1.1 js reference to the section element with id users
-const $userContainer = document.getElementById("users")
+
+const $usersContainer = document.getElementById("users")
+document.getElementById("login")
+    .onsubmit = login
+//2.1 Set createPost function as onsubmit handler for the create post form 
+document.getElementById("createPost")
+    .onsubmit = createPost
 spawnPosts()
+//1.4 call function to spawn user elements
+spawnUsers()
+//2.2 Define function createPost to send post to server
+
+function createPost(e) {
+    e.preventDefault()
+    const payload = {
+        body: JSON.stringify({
+            text: document.getElementById("newPost").value
+        }),
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }
+    fetch("/posts", payload)
+        .then(res => res.json())
+        .then(res => console.log(res.body))
+        .catch(error => console.error(error))
+}
+
+function login(e) {
+    e.preventDefault()
+    const payload = {
+        body: JSON.stringify({
+            username: document.getElementById("username").value,
+            password: document.getElementById("password").value
+        }),
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }
+    fetch("/login", payload)
+        .then(res => res.json())
+        .then(res => console.log(res.body))
+        .catch(error => console.error(error))
+}
 
 //1.4 call function to spawn user elements
 spawnUsers()
@@ -26,26 +71,23 @@ function spawnPosts() {
 }
 
 //1.2 define a function to spawn user elements
+function spawnUsers() {
+    const usersHTML = loadData().users.map( user => `
+        <div class="user">
+            <div class="details">
+                <div>${user.username}</div>
+                <div>${user.firstName}</div>
+                <div>${user.lastName}</div>
+                <div>${user.gender}</div>
+                <div>${user.age}</div>
+            </div>
+            <button>Add Friend</button>
+        </div>
+    ` ).join("")
+    $usersContainer.innerHTML = usersHTML
+}
 //1.3 each user element should be a div that shows user info
 //... and has a button that says Add Friend (doesn't work)
-function spawnUsers(){
-    console.log("spawning new user")
-    const userHTML = loadData().users.map(user =>`
-    <div class="user">
-            <button>add user</button>
-            <div class="details">
-                <div>username: ${user.username}</div>
-                <div>first name:${user.firstName}</div>
-                <div>last name:${user.lastName}</div>
-                <div>age:${user.age}</div>
-                <div>Gender:${user.gender}</div>
-            </div>
-        </div>
-
-    `).join('')
-    $userContainer.innerHTML = userHTML
-}
-
 
 function loadData() {
     return {
