@@ -66,26 +66,3 @@ app.post("/login", (req, res) => {
 })
 
 app.listen(8080, () => console.log("Server started"))
-
-function loadData() {
-    return {
-        users:
-        [
-            {
-                id: 1,
-                username: "jword",
-                password: "hello2021"
-            },
-            {
-                id: 2,
-                username: "tommyinnit",
-                password: "blockgame"
-            },
-            {
-                id: 3,
-                username: "joel15",
-                password: "kirby"
-            }
-        ]
-    }
-}
